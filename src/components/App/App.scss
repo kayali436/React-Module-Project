@@ -1,4 +1,12 @@
 .app {
+  height: auto;
+  gap: 4rem;
+  &__cards{
+    height: 20rem;
+    display: flex;
+    gap:1rem;
+  }
+
 }
 .app {
   display: grid;

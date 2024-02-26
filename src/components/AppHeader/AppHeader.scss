@@ -1,9 +1,18 @@
 .app {
-  &__heading {
+  &__header {
+    position: relative;
     display: flex;
-    place-content: center;
+    justify-content: center;
   }
+  &__heading {
+    height: 5rem;
+  }
+
   &__logo {
-    max-width: 100px;
+    position: absolute;
+    left: 0;
+    height: 6rem;
+    width: 6rem;
   }
 }
+
