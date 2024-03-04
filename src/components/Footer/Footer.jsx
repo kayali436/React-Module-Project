@@ -1,3 +1,4 @@
+import "./Footer.scss";
 const Footer = (prop) => {
   return (
     <footer className="app_footer">
