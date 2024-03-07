@@ -145,6 +145,7 @@ const Bookings = () => {
                       name="firstName"
                       value={newBooking.firstName}
                       onChange={(e) => handleInputChange(e, "firstName")}
+                      required
                     />
                   </label>
                   <label className="form-input">
@@ -155,26 +156,30 @@ const Bookings = () => {
                       name="surname"
                       value={newBooking.surname}
                       onChange={(e) => handleInputChange(e, "surname")}
+                      required
                     />
                   </label>
                   <label className="form-input">
                     <span className="form-label">Email:</span>
                     <input
                       className="form-field"
-                      type="text"
+                      type="email"
                       name="email"
                       value={newBooking.email}
                       onChange={(e) => handleInputChange(e, "email")}
+                      pattern="[^@]+@[^@]+\.[a-zA-Z]{2,}"
                     />
                   </label>
                   <label className="form-input">
                     <span className="form-label">Room ID:</span>
                     <input
                       className="form-field"
-                      type="text"
+                      type="number"
                       name="roomId"
                       value={newBooking.roomId}
                       onChange={(e) => handleInputChange(e, "roomId")}
+                      min="0"
+                      max="100"
                     />
                   </label>
                   <label className="form-input">
