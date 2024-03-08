@@ -1,7 +1,19 @@
+import { useState } from "react";
+import "./ResultTables.scss"
+
 const ResultsTable = (props) => {
+  const [selectedRowIndex, setSelectedRowIndex] = useState(null);
+
+  const handleRowClick = (index) => {
+    setSelectedRowIndex(index === selectedRowIndex ? null : index);
+  };
   return (
     <>
-      <tr>
+      <tr
+        key={props.key}
+        onClick={() => handleRowClick(props.key)}
+        className={props.key === selectedRowIndex ? "selected-row" : ""}
+      >
         <td>{props.id}</td>
         <td>{props.title}</td>
         <td>{props.firstName}</td>

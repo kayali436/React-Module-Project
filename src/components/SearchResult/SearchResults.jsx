@@ -1,6 +1,8 @@
 import React from "react";
 import ResultsTable from "@/components/ResultsTable/ResultsTable.jsx";
-import dayjs from "dayjs"; 
+import dayjs from "dayjs";
+import "./SearchResults.scss";
+import { useState } from "react";
 
 const SearchResults = (props) => {
 
@@ -44,7 +46,7 @@ const SearchResults = (props) => {
               roomId={roomId}
               checkInDate={checkInDate}
               checkOutDate={checkOutDate}
-              nights={dayjs(checkOutDate).diff(checkInDate, 'day')}
+              nights={dayjs(checkOutDate).diff(checkInDate, "day")}
             />
           )
         )}
