@@ -1,9 +1,13 @@
 import Search from "./Search.jsx";
-import {describe, it, expect, spy} from "vitest";
-import { render, fireEvent, screen } from "@testing-library/react";
+import { describe, it, expect, spy } from "vitest";
+import {
+  render,
+  fireEvent,
+  screen,
+  getAllByRole,
+} from "@testing-library/react";
 
 describe("Search Component", () => {
-  
   test("renders a search input", () => {
     render(<Search />);
     const searchInput = screen.getByRole("searchbox");
@@ -17,12 +21,21 @@ describe("Search Component", () => {
     expect(inputField.value).toBe("test value");
   });
 
-    it("check the input value is logged or not", () => {
-      render(<Search />);
-      const consoleLogSpy = spy(console, 'log');
-      const inputField = screen.getByRole("searchbox");
-      fireEvent.change(inputField, { target: { value: 'test value' } });
-      expect(consoleLogSpy).toHaveBeenCalledWith('Input value: test value');
-    });
+  it("check the input value is logged or not", () => {
+    render(<Search />);
+    const consoleLogSpy = spy(console, "log");
+    const inputField = screen.getByRole("searchbox");
+    fireEvent.change(inputField, { target: { value: "test value" } });
+    expect(consoleLogSpy).toHaveBeenCalledWith("Input value: test value");
+  });
 
+  it("Form can be submitted & input field is modifiable", () => {
+    const mockSubmit = jest.fn();
+    render(<Search />);
+
+    fireEvent.submit(ByRole("form"));
+
+    expect(mockSubmit).toHaveBeenCalled();
+    expect(mockSubmit.mock.calls).toEqual([[{ name: "Joe Doe" }]]);
+  });
 });

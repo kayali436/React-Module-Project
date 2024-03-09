@@ -4,6 +4,7 @@ import FakeBookings from "@/data/fakeBookings.json";
 import { useState, useEffect } from "react";
 import "./Bookings.scss";
 
+
 const Bookings = () => {
   const [bookings, setBookings] = useState([]);
   const [newBooking, setNewBooking] = useState({

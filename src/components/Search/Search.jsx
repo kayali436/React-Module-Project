@@ -5,8 +5,8 @@ import { useState } from "react";
 const Search = (props) => {
   const [searchInput, setSearchInput] = useState("");
   function handleSearchInput(event) {
-  setSearchInput(event.target.value);
-  console.log(searchInput);
+    setSearchInput(event.target.value);
+    console.log(searchInput);
   }
 
   return (
@@ -14,7 +14,13 @@ const Search = (props) => {
       <header className="search__header">
         <h4 className="search__heading heading">Search Bookings</h4>
       </header>
-      <form className="search__form">
+      <form
+        className="search__form"
+        onSubmit={(e) => {
+          e.preventDefault();
+          props.search(searchInput);
+        }}
+      >
         <label className="search__label" htmlFor="customerName">
           &rarr;
         </label>
@@ -26,7 +32,7 @@ const Search = (props) => {
           value={searchInput}
           onChange={handleSearchInput}
         />
-        <SearchButton click={props.search} input={searchInput} />
+        <SearchButton />
       </form>
     </section>
   );
