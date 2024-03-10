@@ -35,24 +35,25 @@ const Bookings = () => {
     setNewBooking({ ...newBooking, [fieldName]: updatedValue });
   };
 
+  const [isLoading, setLoading] = useState(true); // New state for loading indicator
+
   useEffect(() => {
-    setBookings(FakeBookings);
     // Fetch data when the component mounts
-    // fetch("https://cyf-react.glitch.me").then((res)=>{res.json()}).then((data)=>{
-    //   console.log(data);
-    //   setBookings(data)
-    // })
-    // const fetchData = async () => {
-    //   try {
-    //     const response = await fetch("https://cyf-react.glitch.me");//,{ mode: 'no-cors'});
-    //     const data = await response.json();
-    //     setBookings(data);
-    //     console.log("Fetched bookings data:", data);
-    //   } catch (error) {
-    //     console.error("Error fetching bookings data:", error);
-    //   }
-    // };
-    //  fetchData();
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://phrygian-cheddar-antler.glitch.me/delayed"
+        );
+        const data = await response.json();
+        setBookings(data);
+        setLoading(false); // Set loading to false once data is fetched
+        console.log("Fetched bookings data:", data);
+      } catch (error) {
+        console.error("Error fetching bookings data:", error);
+        setLoading(false); // Set loading to false in case of an error
+      }
+    };
+    fetchData();
     // Log text when the component first renders
     console.log("Component has rendered!");
   }, []); // Empty dependency array means this effect runs only once on mount
@@ -64,31 +65,71 @@ const Bookings = () => {
       )
     );
   };
+  //error handling for the form inputs
+  const [error, setError] = useState(null);
+
+  // Function to check the email format
+  const isValidEmail = (email) => {
+    const emailParts = email.split("@");
+    if (emailParts.length !== 2) {
+      return false;
+    }
+
+    const [localPart, domainPart] = emailParts;
+    if (localPart.length === 0 || domainPart.length === 0) {
+      return false;
+    }
+
+    const domainParts = domainPart.split(".");
+    if (domainParts.length < 2) {
+      return false;
+    }
+
+    return true;
+  };
 
   const bookingSubmit = (e) => {
     e.preventDefault();
+
+    // Check for empty values in all fields
+    for (const field in newBooking) {
+      if (!newBooking[field]) {
+        setError("All fields must be filled in.");
+        return;
+      }
+    }
     // Check if the room ID is already booked
     const isRoomAlreadyBooked = bookings.some(
       (booking) => booking.roomId === newBooking.roomId
     );
 
     if (isRoomAlreadyBooked) {
-      alert("This room is already booked. Please choose another room.");
+      setError("This room is already booked. Please choose another room.");
       return; // Prevent further execution if the room is already booked
     }
-    // Check if any of the required fields are empty
-    const requiredFields = [
-      "firstName",
-      "surname",
-      "email",
-      "roomId",
-      "checkInDate",
-      "checkOutDate",
-    ];
-    if (requiredFields.some((field) => !newBooking[field])) {
-      alert("Please fill in all required fields.");
+
+    // Validation for first name, last name, email, and room ID
+    if (
+      !newBooking.firstName ||
+      !newBooking.surname ||
+      !isValidEmail(newBooking.email) ||
+      !newBooking.roomId.match(/^\d+$/)
+    ) {
+      setError(
+        "Invalid input. Please check your entries, and ensure the email format is valid."
+      );
       return;
     }
+
+    // Additional validation for room ID range
+    const roomId = parseInt(newBooking.roomId, 10);
+    if (roomId < 0 || roomId > 100) {
+      setError("Room ID must be a number between 0 and 100.");
+      return;
+    }
+
+    // Clear any existing error message
+    setError(null);
     // Generate a unique id for the new booking
     const newId = Math.max(...bookings.map((booking) => booking.id), 0) + 1;
 
@@ -116,7 +157,11 @@ const Bookings = () => {
       <main className="bookings">
         <Search search={search} />
         <section className="content">
-          <SearchResults results={bookings} />
+          {isLoading ? (
+            <p>Loading data, please wait...</p>
+          ) : (
+            <SearchResults results={bookings} />
+          )}
         </section>
         <button className="open-modal-button" onClick={openModal}>
           Book new costumer
@@ -206,8 +251,13 @@ const Bookings = () => {
                   <button className="submit_button" type="submit">
                     Confirm booking
                   </button>
+                  {error && <div className="error">{error}</div>}
                 </form>
-                <img class="form_img" src="/src/assets/spa-logo.png"></img>
+                <img
+                  className="form_img"
+                  src="/src/assets/spa-logo.png"
+                  alt="SPA Logo"
+                />
               </div>
             </div>
 
