@@ -35,23 +35,21 @@ const Bookings = () => {
   };
 
   useEffect(() => {
-    setBookings(FakeBookings);
+ 
     // Fetch data when the component mounts
-    // fetch("https://cyf-react.glitch.me").then((res)=>{res.json()}).then((data)=>{
-    //   console.log(data);
-    //   setBookings(data)
-    // })
-    // const fetchData = async () => {
-    //   try {
-    //     const response = await fetch("https://cyf-react.glitch.me");//,{ mode: 'no-cors'});
-    //     const data = await response.json();
-    //     setBookings(data);
-    //     console.log("Fetched bookings data:", data);
-    //   } catch (error) {
-    //     console.error("Error fetching bookings data:", error);
-    //   }
-    // };
-    //  fetchData();
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://phrygian-cheddar-antler.glitch.me/"
+        );
+        const data = await response.json();
+        setBookings(data);
+        console.log("Fetched bookings data:", data);
+      } catch (error) {
+        console.error("Error fetching bookings data:", error);
+      }
+    };
+     fetchData();
     // Log text when the component first renders
     console.log("Component has rendered!");
   }, []); // Empty dependency array means this effect runs only once on mount
@@ -201,7 +199,7 @@ const Bookings = () => {
                     Confirm booking
                   </button>
                 </form>
-                <img class="form_img" src="/src/assets/spa-logo.png"></img>
+               <img className="form_img" src="/src/assets/spa-logo.png" alt="SPA Logo" />
               </div>
             </div>
 
