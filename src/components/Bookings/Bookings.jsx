@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Search from "@/components/Search/Search";
 import SearchResults from "@/components/SearchResults/SearchResults.jsx";
-import FakeBookings from "@/data/fakeBookings.json";
+import "./Bookings.scss";
 
 const Bookings = () => {
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
   const [bookings, setBookings] = useState([]);
   const [newBooking, setNewBooking] = useState({
     firstName: "",
@@ -36,26 +34,22 @@ const Bookings = () => {
   };
 
   useEffect(() => {
+  
     const fetchData = async () => {
       try {
-        const response = await fetch('https://cyf-react.glitch.me/error');
-        if (!response.ok) {
-          throw new Error('Failed to fetch data');
-        }
-        const jsonData = await response.json();
-        setData(jsonData);
+        const response = await fetch("https://phrygian-cheddar-antler.glitch.me/");//,{ mode: 'no-cors'});
+        const data = await response.json();
+        setBookings(data);
+        console.log("Fetched bookings data:", data);
       } catch (error) {
-        setError('Error fetching data from the server');
+        console.error("Error fetching bookings data:", error);
       }
     };
-
-    fetchData();
-
-   
-
-    // Log text when the component first renders
+     fetchData();
+    Log text when the component first renders
     console.log("Component has rendered!");
-  }, []);
+  }, []); // Empty dependency array means this effect runs only once on mount
+
 
   const search = (searchVal) => {
     setBookings(
@@ -114,38 +108,107 @@ const Bookings = () => {
   return (
     <>
       <main className="bookings">
-        {error ? (
-          <p>Error: {error}</p>
-        ) : (
-          <>
-            <Search search={search} />
-            <section className="content">
-              <SearchResults results={bookings} />
-            </section>
-            <button className="open-modal-button" onClick={openModal}>
-              Book new customer
-            </button>
+        <Search search={search} />
+        <section className="content">
+          <SearchResults results={bookings} />
+        </section>
+        <button className="open-modal-button" onClick={openModal}>
+          Book new costumer
+        </button>
 
-            {isModalOpen && (
-              <div className="modal-overlay">
-                <h3 className="add_customer">Add new Customer</h3>
-                <div className="modal-content">
-                  <div className="container">
-                    <form onSubmit={bookingSubmit} className="form_column">
-                      {/* Form inputs */}
-                      <button className="submit_button" type="submit">
-                        Confirm booking
-                      </button>
-                    </form>
-                    <img className="form_img" src="/src/assets/spa-logo.png" alt="SPA Logo" />
-                  </div>
-                </div>
-                <button className="close-modal-button" onClick={closeModal}>
-                  x
-                </button>
+        {isModalOpen && (
+          <div className="modal-overlay">
+            <h3 className="add_customer">Add new Customer</h3>
+            <div className="modal-content">
+              <div className="container">
+                <form onSubmit={bookingSubmit} className="form_column">
+                  <label className="form-input">
+                    <span className="form-label">Title:</span>
+                    <input
+                      className="form-field"
+                      type="text"
+                      name="title"
+                      value={newBooking.title}
+                      onChange={(e) => handleInputChange(e, "title")}
+                    />
+                  </label>
+                  <label className="form-input">
+                    <span className="form-label">First Name:</span>
+                    <input
+                      className="form-field"
+                      type="text"
+                      name="firstName"
+                      value={newBooking.firstName}
+                      onChange={(e) => handleInputChange(e, "firstName")}
+                      required
+                    />
+                  </label>
+                  <label className="form-input">
+                    <span className="form-label">Surname:</span>
+                    <input
+                      className="form-field"
+                      type="text"
+                      name="surname"
+                      value={newBooking.surname}
+                      onChange={(e) => handleInputChange(e, "surname")}
+                      required
+                    />
+                  </label>
+                  <label className="form-input">
+                    <span className="form-label">Email:</span>
+                    <input
+                      className="form-field"
+                      type="email"
+                      name="email"
+                      value={newBooking.email}
+                      onChange={(e) => handleInputChange(e, "email")}
+                      pattern="[^@]+@[^@]+\.[a-zA-Z]{2,}"
+                    />
+                  </label>
+                  <label className="form-input">
+                    <span className="form-label">Room ID:</span>
+                    <input
+                      className="form-field"
+                      type="number"
+                      name="roomId"
+                      value={newBooking.roomId}
+                      onChange={(e) => handleInputChange(e, "roomId")}
+                      min="0"
+                      max="100"
+                    />
+                  </label>
+                  <label className="form-input">
+                    <span className="form-label">Check In Date:</span>
+                    <input
+                      className="form-field"
+                      type="date"
+                      name="checkInDate"
+                      value={newBooking.checkInDate}
+                      onChange={(e) => handleInputChange(e, "checkInDate")}
+                    />
+                  </label>
+                  <label className="form-input">
+                    <span className="form-label">Check Out Date:</span>
+                    <input
+                      className="form-field"
+                      type="date"
+                      name="checkOutDate"
+                      value={newBooking.checkOutDate}
+                      onChange={(e) => handleInputChange(e, "checkOutDate")}
+                    />
+                  </label>
+                  <button className="submit_button" type="submit">
+                    Confirm booking
+                  </button>
+                </form>
+                <img class="form_img" src="/src/assets/spa-logo.png"></img>
               </div>
-            )}
-          </>
+            </div>
+
+            <button className="close-modal-button" onClick={closeModal}>
+              x
+            </button>
+          </div>
         )}
       </main>
     </>

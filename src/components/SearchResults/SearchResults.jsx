@@ -50,7 +50,7 @@ const SearchResults = (props) => {
             <th>Check In Date</th>
             <th>Check Out Date</th>
             <th>Nights</th>
-            <th>Show Profile</th>
+            <th>Customer Profile</th>
           </tr>
         </thead>
         <tbody>

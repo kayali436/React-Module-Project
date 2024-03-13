@@ -1,15 +1,5 @@
-const SearchButton = (props) => {
-  return (
-    <button
-      className="button search__button"
-      onClick={(e) => {
-        e.preventDefault();
-        props.click(props.input);
-      }}
-    >
-      Search
-    </button>
-  );
+const SearchButton = () => {
+  return <button className="button search__button">Search</button>;
 };
 
 export default SearchButton;
