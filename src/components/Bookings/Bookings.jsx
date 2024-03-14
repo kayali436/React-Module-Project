@@ -1,9 +1,7 @@
+import React, { useState, useEffect } from 'react';
 import Search from "@/components/Search/Search";
 import SearchResults from "@/components/SearchResults/SearchResults.jsx";
-import FakeBookings from "@/data/fakeBookings.json";
-import { useState, useEffect } from "react";
 import "./Bookings.scss";
-
 
 const Bookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -36,26 +34,22 @@ const Bookings = () => {
   };
 
   useEffect(() => {
-    setBookings(FakeBookings);
-    // Fetch data when the component mounts
-    // fetch("https://cyf-react.glitch.me").then((res)=>{res.json()}).then((data)=>{
-    //   console.log(data);
-    //   setBookings(data)
-    // })
-    // const fetchData = async () => {
-    //   try {
-    //     const response = await fetch("https://cyf-react.glitch.me");//,{ mode: 'no-cors'});
-    //     const data = await response.json();
-    //     setBookings(data);
-    //     console.log("Fetched bookings data:", data);
-    //   } catch (error) {
-    //     console.error("Error fetching bookings data:", error);
-    //   }
-    // };
-    //  fetchData();
-    // Log text when the component first renders
+  
+    const fetchData = async () => {
+      try {
+        const response = await fetch("https://phrygian-cheddar-antler.glitch.me/");//,{ mode: 'no-cors'});
+        const data = await response.json();
+        setBookings(data);
+        console.log("Fetched bookings data:", data);
+      } catch (error) {
+        console.error("Error fetching bookings data:", error);
+      }
+    };
+     fetchData();
+    Log text when the component first renders
     console.log("Component has rendered!");
   }, []); // Empty dependency array means this effect runs only once on mount
+
 
   const search = (searchVal) => {
     setBookings(
@@ -222,3 +216,10 @@ const Bookings = () => {
 };
 
 export default Bookings;
+
+
+  );
+};
+
+export default Bookings;
+
