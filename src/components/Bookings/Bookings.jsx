@@ -1,24 +1,35 @@
 import Search from "@/components/Search/Search";
 import SearchResults from "@/components/SearchResult/SearchResults.jsx";
-import FakeBookings from "@/data/fakeBookings.json";
 import { useState } from "react";
 import Restaurant from "../Restaurant/Restaurant";
 import { useEffect } from "react";
-// let data;
+
 
 const Bookings = () => {
-  const [bookings, setBookings] = useState(FakeBookings);
+  const [bookings, setBookings] = useState([]);
 
-  // useEffect(() => {
-  //   fetch("https://cyf-react.glitch.me")
-  //     .then((response) => response.json())
-
-  //     .then((res) => setBookings(res));
-  // }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://phrygian-cheddar-antler.glitch.me/"
+        );
+        if (response.ok) {
+          const jsonData = await response.json();
+          setBookings(jsonData);
+        }
+      } catch (error) {
+        console.error("Error fetching data from the server", error);
+      }
+    };
+    fetchData();
+    // Log text when the component first renders
+    console.log("Component has rendered!");
+  }, []);
 
   const search = (searchVal) => {
     setBookings(
-      FakeBookings.filter((item) =>
+      bookings.filter((item) =>
         item.firstName.toLowerCase().includes(searchVal)
       )
     );
