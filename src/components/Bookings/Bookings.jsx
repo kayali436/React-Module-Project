@@ -37,16 +37,16 @@ const Bookings = () => {
   
     const fetchData = async () => {
       try {
-        const response = await fetch("https://phrygian-cheddar-antler.glitch.me/");//,{ mode: 'no-cors'});
+        const response = await fetch("https://phrygian-cheddar-antler.glitch.me/");
         const data = await response.json();
         setBookings(data);
-        console.log("Fetched bookings data:", data);
+       
       } catch (error) {
         console.error("Error fetching bookings data:", error);
       }
     };
      fetchData();
-    Log text when the component first renders
+    
     console.log("Component has rendered!");
   }, []); // Empty dependency array means this effect runs only once on mount
 
@@ -218,8 +218,5 @@ const Bookings = () => {
 export default Bookings;
 
 
-  );
-};
 
-export default Bookings;
 
