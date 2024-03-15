@@ -7,12 +7,11 @@ const Order = ({ orderType }) => {
     setOrders(orders + 1);
   };
   return (
-    <li data-testid='orders' className="restaurant__item">
-      {orderType}: {orders} <RestaurantButton orderOne={orderOne} />
+    <li data-testid="orders" className="restaurant__item">
+      {orderType}: {orders}{" "}
+      <RestaurantButton orderType={orderType} orderOne={orderOne} />
     </li>
   );
 };
 
 export default Order;
-
-

@@ -1,14 +1,17 @@
 import "./Footer.scss";
-const Footer = (prop) => {
+const Footer = (props) => {
+
+if(props.array ){
   return (
-    <footer className="app_footer">
+    <footer data-testid="footer" className="app_footer bottom-footer" >
       <ul>
-        {prop.array.map((arr, index) => {
-          return <li key={index}>{arr}</li>;
+        {props.array.map((item, index) => {
+          return <li key={index}>{item}</li>;
         })}
       </ul>
     </footer>
   );
+}
 };
 
 export default Footer;

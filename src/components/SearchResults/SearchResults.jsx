@@ -51,7 +51,7 @@ const SearchResults = (props) => {
 
   // handler , when click on each column it should sort the column ascending or descending
   const handleColumnClick = (column) => {
-    // if we click on a same column it toggle between asc and ddesc
+    // if we click on a same column it toggle between asc and desc
     if (columnForSort === column) {
       // sortOrder State check which type of sorting is being done on the column if it's asc makes it desc and vice versa
       setSortOrder(sortOrder === "asc" ? "desc" : "asc");
