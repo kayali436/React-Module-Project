@@ -37,7 +37,7 @@ const Bookings = () => {
   
     const fetchData = async () => {
       try {
-        const response = await fetch("https://phrygian-cheddar-antler.glitch.me/");
+        const response = await fetch("https://cyf-hotel-api.netlify.app/");
         const data = await response.json();
         setBookings(data);
        
@@ -46,14 +46,12 @@ const Bookings = () => {
       }
     };
      fetchData();
-    
-    console.log("Component has rendered!");
-  }, []); // Empty dependency array means this effect runs only once on mount
+  }, []);
 
 
   const search = (searchVal) => {
     setBookings(
-      FakeBookings.filter((item) =>
+     bookings.filter((item) =>
         item.firstName.toLowerCase().includes(searchVal)
       )
     );
@@ -70,7 +68,7 @@ const Bookings = () => {
       alert("This room is already booked. Please choose another room.");
       return; // Prevent further execution if the room is already booked
     }
-    // Check if any of the required fields are empty
+    
     const requiredFields = [
       "firstName",
       "surname",
@@ -113,7 +111,7 @@ const Bookings = () => {
           <SearchResults results={bookings} />
         </section>
         <button className="open-modal-button" onClick={openModal}>
-          Book new costumer
+          Book new customer
         </button>
 
         {isModalOpen && (
@@ -123,7 +121,7 @@ const Bookings = () => {
               <div className="container">
                 <form onSubmit={bookingSubmit} className="form_column">
                   <label className="form-input">
-                    <span className="form-label">Title:</span>
+                    <span className="form-label">Title</span>
                     <input
                       className="form-field"
                       type="text"
@@ -197,7 +195,7 @@ const Bookings = () => {
                       onChange={(e) => handleInputChange(e, "checkOutDate")}
                     />
                   </label>
-                  <button className="submit_button" type="submit">
+                  <button data-testid="newBooking" className="submit_button" type="submit">
                     Confirm booking
                   </button>
                 </form>

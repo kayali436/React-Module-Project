@@ -2,6 +2,8 @@
 
 .bookings {
     padding: 20px;
+    display: grid;
+    gap: 5em;
 }
 .container{
     display: grid;
@@ -10,15 +12,15 @@
 }
 .add_customer{
     position: fixed;
-    top: 80px;
-    left: 410px;
+    top: 70px;
+    left: 490px;
 }
 
 form {
-    
     grid-gap: 5px 35px;
     max-width: 500px;
     position: relative; 
+    margin-top: 1rem;
 }
 label {
     margin-bottom: 8px;
@@ -30,7 +32,6 @@ input {
 }
 
 button {
-    
     padding: 10px;
     background-color: #007bff;
     color: #fff;
@@ -48,8 +49,7 @@ button:hover {
     margin-left:  30px;
     text-align: center;
     width: 15rem;
-    
-
+    margin-top: 1rem;
 }
 
 .modal-overlay {
@@ -67,6 +67,7 @@ button:hover {
 .modal-content {
     background: #5f74eb;
     padding: 20px;
+    margin: 1rem;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     max-width: 600px;
@@ -76,9 +77,12 @@ button:hover {
     justify-content: center;
     
 }
+.open-modal-button{
+    width: 20rem;
+}
 .close-modal-button {
     position: relative; 
-    bottom: 260px;
+    bottom: 270px;
     left:  -50px;
     background: none;
     border: none;

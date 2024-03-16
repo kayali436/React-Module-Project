@@ -1,7 +1,7 @@
-const RestaurantButton = ({ orderOne }) => {
+const RestaurantButton = ({ orderOne ,orderType}) => {
     return (
-      <button className="button restaurant__button" onClick={orderOne}>
-        Add
+      <button data-testid="button" className="button restaurant__button" onClick={orderOne}>
+        Add {orderType}
       </button>
     );
   };
